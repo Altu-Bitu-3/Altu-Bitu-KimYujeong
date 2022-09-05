@@ -5,9 +5,8 @@
 using namespace std;
 
 typedef long long ll;
-vector<int> tip; // 팁 저장하는 벡터
 
-ll maxTip(int n) {
+ll maxTip(int n, vector<int> tip) {
     ll sum = 0;
     for(int i = 0; i < n; i++) { // (i == 받은 등수 - 1)
         int cost = tip[i] - i;
@@ -21,11 +20,11 @@ int main() {
     int n;
     cin >> n;
 
-    tip.assign(n, 0);
+    vector<int> tip (n, 0); // 팁 저장하는 벡터
     for(int i = 0; i < n; i++) // 팁 입력
         cin >> tip[i];
     sort(tip.begin(), tip.end(), greater<>()); // 내림차순 정렬
 
-    cout << maxTip(n);
+    cout << maxTip(n, tip);
     return 0;
 }

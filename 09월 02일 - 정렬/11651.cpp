@@ -5,7 +5,6 @@
 using namespace std;
 
 typedef pair<int, int> pi;
-vector<pi> cor; // 좌표 정보 저장
 
 bool cmp(pi &p1, pi &p2) {
     // 1. y좌표 오름차순
@@ -18,7 +17,7 @@ int main() {
     int n;
     cin >> n;
 
-    cor.assign(n, {0, 0});
+    vector<pi> cor (n, {0, 0}); // 좌표 정보 저장
     for(int i = 0; i < n; i++)
         cin >> cor[i].first >> cor[i].second;
 

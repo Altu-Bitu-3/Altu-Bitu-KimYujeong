@@ -4,8 +4,6 @@
 
 using namespace std;
 
-vector<string> serial_no;
-
 int computeSum(string s) {
     int sum = 0;
     for(int i = 0; i < s.length(); i++) {
@@ -29,7 +27,7 @@ int main() {
     int n;
     cin >> n;
 
-    serial_no.assign(n, "");
+    vector<string> serial_no (n, "");
     for(int i = 0; i < n; i++) // 시리얼 번호 입력
         cin >> serial_no[i];
 

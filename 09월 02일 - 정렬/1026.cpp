@@ -4,9 +4,7 @@
 
 using namespace std;
 
-vector<int> a, b;
-
-int minSum(int n) { // S 최솟값 만들기
+int minSum(int n, vector<int> a, vector<int> b) { // S 최솟값 만들기
     int sum = 0;
     for(int i = 0; i < n; i++)
         sum += a[i] * b[i];
@@ -17,9 +15,7 @@ int main() {
     int n;
     cin >> n;
 
-    a.assign(n, 0);
-    b.assign(n, 0);
-
+    vector<int> a(n, 0), b(n, 0);
     for(int i = 0; i < n; i++) // A 입력
         cin >> a[i];
 
@@ -29,6 +25,6 @@ int main() {
     sort(a.begin(), a.end()); // 오름차순 정렬
     sort(b.begin(), b.end(), greater<>()); // 내림차순 정렬
 
-    cout << minSum(n);
+    cout << minSum(n, a, b);
     return 0;
 }
