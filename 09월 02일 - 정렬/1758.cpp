@@ -10,7 +10,7 @@ ll maxTip(int n, vector<int> tip) {
     ll sum = 0;
     for(int i = 0; i < n; i++) { // (i == 받은 등수 - 1)
         int cost = tip[i] - i;
-        if(cost < 0) continue; // 팁을 주지 않는 경우
+        if(cost < 0) break; // 팁을 주지 않는 경우
         sum += cost;
     }
     return sum;
