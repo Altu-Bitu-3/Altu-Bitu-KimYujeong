@@ -1,5 +1,5 @@
 #include <iostream>
-#include <map>
+#include <set>
 
 using namespace std;
 
@@ -8,15 +8,15 @@ int main() {
     string word;
     cin >> n >> m;
 
-    map<string, int> s; // 문자열 집합
+    set<string> s; // 문자열 집합
     while(n--) { // 집합 s에 속한 문자열 입력
         cin >> word;
-        s[word]++;
+        s.insert(word);
     }
 
     while(m--) { // 집합 s에 속한 문자열인가
         cin >> word;
-        if(s[word]) cnt++;
+        if(s.find(word) != s.end()) cnt++;
     }
 
     cout << cnt;
