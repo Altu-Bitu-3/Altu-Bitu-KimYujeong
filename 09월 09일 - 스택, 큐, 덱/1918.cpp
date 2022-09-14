@@ -17,26 +17,28 @@ string postOrder(string inorder) { // 후위 연산식으로 변환
 
     stack<char> op; // 연산자 저장하는 스택
     for(int i = 0; i < inorder.length(); i++) {
-        // 1. 여는 괄호 : 무조건 push
-        if(inorder[i] == '(') op.push(inorder[i]);
-        // 2. 닫는 괄호 : 여는 괄호 나올 때까지 pop
-        else if(inorder[i] == ')') {
-            while(!op.empty()) {
-                int top = op.top(); op.pop();
-                if(top == '(') break;
-                result += top;
-            }
-        }
-        // 3. 연산자 : 연산자 우선순위 낮은 거 발견하기 전까지 pop
-        else if(inorder[i] == '+' || inorder[i] == '-' || inorder[i] == '*' || inorder[i] == '/') {
-            while(!op.empty() && priority(inorder[i]) <= priority(op.top())) {
-                result += op.top();
+        switch(inorder[i]) {
+            case '(': // 1. 여는 괄호 : 무조건 push
+                op.push(inorder[i]);
+                break;
+            case ')': // 2. 닫는 괄호 : 여는 괄호 나올 때까지 pop
+                while(!op.empty() && op.top() != '(') {
+                    result += op.top();
+                    op.pop();
+                }
                 op.pop();
-            }
-            op.push(inorder[i]);
+                break;
+            case '+': case '-':
+            case '*': case '/': // 3. 연산자 : 연산자 우선순위 낮은 거 발견하기 전까지 pop
+                while(!op.empty() && priority(inorder[i]) <= priority(op.top())) {
+                    result += op.top();
+                    op.pop();
+                }
+                op.push(inorder[i]);
+                break;
+            default: result += inorder[i]; // 4. 피연산자 : 그대로 넣기
+
         }
-        // 4. 피연산자 : 그대로 넣기
-        else result += inorder[i];
     }
 
     while(!op.empty()) {
