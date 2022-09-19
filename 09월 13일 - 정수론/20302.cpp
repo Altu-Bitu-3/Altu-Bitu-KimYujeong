@@ -54,7 +54,7 @@ int main() {
 
     while(--n) {
         cin >> op >> num;
-        compute(abs(num), m, op);
+        if(!zero) compute(abs(num), m, op);
     }
 
     if(zero) cout << "mint chocolate"; // 0을 곱한 경우, 무조건 민트 초코
