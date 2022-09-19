@@ -5,6 +5,7 @@
 using namespace std;
 
 const int MAX = 1e5;
+bool zero = false;
 int fact[MAX+1]; // fact[i] = j : i는 j의 배수
 
 void factorization() {
@@ -18,23 +19,18 @@ void factorization() {
     }
 }
 
-void multiply(int num, map<int, int> &m) { // 곱셈
-    if(!num) m[num]++; // 0을 곱한 경우
+void compute(int num, map<int, int> &m, char op) {
+    if(num == 0) zero = true; // 0을 곱한 경우
     while(num > 1) {
-        m[fact[num]]++;
-        num /= fact[num];
-    }
-}
-
-void divide(int num, map<int, int> &m) { // 나눗셈
-    while(num > 1) {
-        m[fact[num]]--;
+        switch(op) {
+            case '*': m[fact[num]]++; break;
+            case '/': m[fact[num]]--; break;
+        }
         num /= fact[num];
     }
 }
 
 bool isMintChoco(map<int, int> m) { // 민트 초코 여부 반환
-    if(m[0]) return true; // 0을 곱한 경우, 무조건 민트 초코
     for(auto iter = m.begin(); iter != m.end(); iter++) {
         if(iter->second < 0) return false;
     }
@@ -54,18 +50,14 @@ int main() {
 
     // 첫번째 숫자
     cin >> num;
-    multiply(num, m);
+    compute(num, m, '*');
 
     while(--n) {
         cin >> op >> num;
-        if(op == '*') { // 곱셈
-            multiply(abs(num), m);
-        }
-        else if(op == '/') { // 나눗셈
-            divide(abs(num), m);
-        }
+        compute(abs(num), m, op);
     }
 
-    cout << (isMintChoco(m) ? "mint chocolate" : "toothpaste");
+    if(zero) cout << "mint chocolate"; // 0을 곱한 경우, 무조건 민트 초코
+    else cout << (isMintChoco(m) ? "mint chocolate" : "toothpaste");
     return 0;
 }

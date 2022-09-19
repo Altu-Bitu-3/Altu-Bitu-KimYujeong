@@ -5,12 +5,9 @@ typedef pair<int, int> pi;
 
 pi stringToInt(string input) { // n:m 형태의 문자열을 정수로 변환하여 n, m 리턴
     string a, b;
-    bool split = false;
-    for(int i = 0; i < input.length(); i++) {
-        if(input[i] == ':') split = true;
-        else if(split) b += input[i];
-        else a += input[i];
-    }
+    int split = input.find(':');
+    a = input.substr(0, split);
+    b = input.substr(split+1, input.size()-split);
     return {stoi(a), stoi(b)}; // (문자열 -> 정수 변환)
 }
 

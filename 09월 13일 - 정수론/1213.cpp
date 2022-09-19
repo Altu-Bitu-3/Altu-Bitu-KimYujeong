@@ -3,7 +3,8 @@
 
 using namespace std;
 
-int alphabet[26]; // 알파벳 개수 저장
+const int SIZE = 26;
+int alphabet[SIZE]; // 알파벳 개수 저장
 
 string palindrome(string input) {
     int len = input.size(), mid = len/2;
@@ -11,7 +12,7 @@ string palindrome(string input) {
 
     vector<char> result (len, '\0');
     for(int i = 0; i < mid; i++) { // (mid까지는 2이상의 수가 필요함)
-        for(int j = 0; j < 26; j++) {
+        for(int j = 0; j < SIZE; j++) {
             if(alphabet[j] >= 2) {
                 result[i] = result[len-1-i] = 'A' + j;
                 alphabet[j] -= 2;
@@ -23,7 +24,7 @@ string palindrome(string input) {
     }
 
     if(len % 2) { // 홀수인 경우, (mid + 1) 자리에 문자 넣기
-        for(int i = 0; i < 26; i++) {
+        for(int i = 0; i < SIZE; i++) {
             if(alphabet[i]) {
                 result[mid] = 'A' + i;
                 break;
