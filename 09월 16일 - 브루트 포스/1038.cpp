@@ -25,6 +25,7 @@ int main() {
     }
     sort(decreasing_num.begin(), decreasing_num.end()); // 오름차순 정렬
 
-    cout << ((n >= decreasing_num.size()) ? -1 : decreasing_num[n]); // n번째 감소하는 수 출력
+    if(n >= decreasing_num.size()) cout << -1;
+    else cout << decreasing_num[n]; // n번째 감소하는 수 출력
     return 0;
 }
