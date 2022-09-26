@@ -1,15 +1,18 @@
 #include <iostream>
-#include <set>
+#include <vector>
 
 using namespace std;
 
+const int SIZE = 26;
+
 bool isGroupWord(string word) {
-    set<char> s;
-    char pre = word[0]; s.insert(word[0]);
+    vector<int> visited(SIZE, 0);
+    char pre = word[0];
+    visited[word[0]-'a'] = true;
     for(int i = 1; i < word.size(); i++) {
-        if(s.find(word[i]) == s.end()) { // 새로운 다른 문자가 나온 경우
+        if(!visited[word[i]-'a']) { // 새로운 다른 문자가 나온 경우
             pre = word[i];
-            s.insert(word[i]); // set에 새로운 문자 추가
+            visited[word[i]-'a'] = true;
         }
         else if(word[i] != pre) return false; // set에 존재하는 문자가 떨어져서 나타난 경우
     }
