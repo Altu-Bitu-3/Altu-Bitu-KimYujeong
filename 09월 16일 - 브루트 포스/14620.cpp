@@ -19,7 +19,7 @@ int cost(int n, vector<pi> seed, vector<vector<int>> ground) { // (seed : 3개�
         cost += ground[row][col];
         for(int j = 0; j < 4; j++) {
             int new_row = row + dy[j], new_col = col + dx[j];
-            if(new_row < 0 || new_row >= n || new_col < 0 || new_col >= n || visited[new_row][new_col]) return INF; // 화단 밖으로 나가거나 다른 꽃잎과 닿음 -> 죽음
+            if(visited[new_row][new_col]) return INF; // 화단 밖으로 나가거나 다른 꽃잎과 닿음 -> 죽음
             visited[new_row][new_col] = true;
             cost += ground[new_row][new_col];
         }
@@ -31,15 +31,17 @@ int plant(int n, vector<vector<int>> ground) {
     int answer = INF; // 최소 비용 저장
 
     vector<pi> cor; // 좌표 정보 저장
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
+    // (가장 자리에는 꽃을 심을 수 없으므로 0행, 0열, n-1행, n-1열은 제외)
+    for(int i = 1; i < n-1; i++) {
+        for(int j = 1; j < n-1; j++) {
             cor.push_back({i, j});
         }
     }
 
-    for(int i = 0; i < n*n; i++) {
-        for(int j = i+1; j < n*n; j++) {
-            for(int k = j+1; k < n*n; k++) {
+    int size = cor.size();
+    for(int i = 0; i < size; i++) {
+        for(int j = i+1; j < size; j++) {
+            for(int k = j+1; k < size; k++) {
                 vector<pi> seed = {cor[i], cor[j], cor[k]}; // 3개의 씨앗 위치
                 answer = min(answer, cost(n, seed, ground));
             }
