@@ -6,7 +6,6 @@
 using namespace std;
 
 const int SIZE = 10;
-int answer = 0;
 int check[SIZE]; // 수 사용 여부
 set<vector<string>> s; // n 만드는 과정 저장하는 셋
 
@@ -21,7 +20,6 @@ void backtracking(string result, string target, vector<string> proceed) {
     if(result.length() == target.length()) {
         // n 만들기 성공 && 과정도 다름
         if(result == target && s.find(proceed) == s.end()) {
-            answer++;
             s.insert(proceed);
         }
         return;
@@ -47,6 +45,6 @@ int main() {
     setDigit(target); // 숫자 세팅하기
 
     backtracking("", target, {});
-    cout << answer;
+    cout << s.size();
     return 0;
 }
