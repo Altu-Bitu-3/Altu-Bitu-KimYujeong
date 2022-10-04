@@ -8,7 +8,7 @@ int w[SIZE][SIZE]; // 비용
 bool visited[SIZE]; // 방문 여부
 
 void backtracking(int start, int prev, int cnt, int sum, int n) {
-    if(cnt == n-1) {
+    if(cnt == n) {
         if(!w[prev][start]) return; // 원점으로 돌아갈 수 없는 경우 pass
         sum += w[prev][start];
         answer = min(answer, sum);
@@ -17,7 +17,7 @@ void backtracking(int start, int prev, int cnt, int sum, int n) {
 
     for(int i = 0; i < n; i++) {
         // 이미 방문한 도시거나 길이 없거나 곧바로 원점으로 가는 경우 pass
-        if(visited[i] || !w[prev][i] || i == start) continue;
+        if(visited[i] || !w[prev][i]) continue;
         visited[i] = true; // 방문 체크
         backtracking(start, i, cnt+1, sum + w[prev][i], n);
         visited[i] = false;
@@ -34,7 +34,9 @@ int main() {
     }
 
     for(int i = 0; i < n; i++) { // i : 시작 지점
-        backtracking(i, i, 0, 0, n);
+        visited[i] = true;
+        backtracking(i, i, 1, 0, n);
+        visited[i] = false;
     }
     cout << answer;
     return 0;
