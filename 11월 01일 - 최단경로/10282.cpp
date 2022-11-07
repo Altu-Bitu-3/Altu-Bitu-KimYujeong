@@ -11,13 +11,18 @@ pi hack(int c, int n, vector<vector<pi>> computer) {
     vector<int> time (n+1, INF);
     priority_queue<pi, vector<pi>, greater<>> pq; // (first : 시간, second : 컴퓨터 번호)
     time[c] = 0; pq.push({0, c}); // 해킹된 컴퓨터
-    
+
+    int cnt = 0, max_time = 0; // 감염된 컴퓨터 수, 최대로 걸린 시간
     while(!pq.empty()) {
         int b = pq.top().second; // 컴퓨터 b
         int s = pq.top().first; // b가 감염되기까지 걸린 시간
         pq.pop();
 
-        if(s > time[b]) continue; // 이미 감염된 컴퓨터 pass
+        if(s > time[b]) { continue; } // 이미 감염된 컴퓨터 pass
+        if(time[b] != INF) {
+            cnt++; // 감염된 컴퓨터 세기
+            max_time = max(max_time, time[b]);
+        }
         
         for(int i = 0; i < computer[b].size(); i++) { // b가 a 컴퓨터 감염시키기
             int a = computer[b][i].second;
@@ -26,14 +31,6 @@ pi hack(int c, int n, vector<vector<pi>> computer) {
                 time[a] = new_s;
                 pq.push({new_s, a});
             }
-        }
-    }
-
-    int cnt = 0, max_time = 0;
-    for(int i = 1; i <= n; i++) {
-        if(time[i] != INF) {
-            cnt++;
-            max_time = max(max_time, time[i]);
         }
     }
     return {cnt, max_time};
